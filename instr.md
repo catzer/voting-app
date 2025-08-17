@@ -63,3 +63,41 @@ kubeclt get all
 ```
 
 To access the applications, you will need to expose the services, for example using `kubectl port-forward` or by creating an Ingress resource.
+
+---
+
+### Deploying with Helm
+
+You can also deploy this application using the Helm chart located in the `/home/catzer/sw_dev/voting-app-uservice/helm/voting-app` directory.
+
+**1. Install the Chart**
+
+To install the chart with the release name `my-release`, run the following command from the chart's root directory:
+
+```bash
+helm install my-release .
+```
+
+**2. Customize the Installation**
+
+You can customize the installation by modifying the `values.yaml` file or by passing values on the command line. For example, to change the number of replicas to 2, you can run:
+
+```bash
+helm install my-release . --set replicaCount=2
+```
+
+**3. Upgrade the Release**
+
+To upgrade the release with new configuration, you can use the `helm upgrade` command:
+
+```bash
+helm upgrade my-release .
+```
+
+**4. Uninstall the Release**
+
+To uninstall the release, run:
+
+```bash
+helm uninstall my-release
+```
