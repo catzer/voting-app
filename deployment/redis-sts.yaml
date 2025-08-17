@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-sts
+  labels:
+    app: demo-voting-app
+    name: redis-sts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-voting-app
+      name: redis-pod
+  serviceName: redis-sts
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      name: redis-pod
+      labels:
+        app: demo-voting-app
+        name: redis-pod
+    spec:
+      containers:
+      - name: redis
+        image: redis:latest
+        ports:
+        - containerPort: 6379

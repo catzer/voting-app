@@ -1,0 +1,7 @@
+1. Install the chart (run from the chart's root directory):
+   helm install my-release /home/catzer/sw_dev/voting-app-uservice/helm/voting-app
+
+2. Get the application URL:
+   export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services my-release-voting-app)
+   export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
+   echo http://$NODE_IP:$NODE_PORT

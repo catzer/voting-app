@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: voting-service
+  labels:
+    app: demo-voting-app
+    name: voting-service
+spec:
+  type: {{ .Values.service.votingApp.type }}
+  ports:
+  - port: {{ .Values.service.votingApp.port }}
+    targetPort: {{ .Values.service.votingApp.port }}
+  selector:
+    app: demo-voting-app
+    name: voting-app-pod

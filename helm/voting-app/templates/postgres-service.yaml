@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-sts-service
+  labels:
+    app: demo-voting-app
+    name: postgres-sts-service
+spec:
+  clusterIP: None
+  type: ClusterIP
+  ports:
+  - port: {{ .Values.service.postgres.port }}
+    targetPort: {{ .Values.service.postgres.port }}
+  selector:
+    app: demo-voting-app
+    name: postgres-pod

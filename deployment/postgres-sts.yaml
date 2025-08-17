@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-sts
+  labels:
+    app: demo-voting-app
+    name: postgres-sts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-voting-app
+      name: postgres-pod
+  serviceName: db-sts
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      name: postgres-pod  
+      labels:
+        app: demo-voting-app
+        name: postgres-pod
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: postgres

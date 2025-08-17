@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+  labels:
+    app: demo-voting-app
+    name: worker-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-voting-app
+      name: worker-app-pod
+  template:
+    metadata:
+      labels:
+        app: demo-voting-app
+        name: worker-app-pod
+    spec:
+      containers:
+      - name: worker-app
+        image: dockersamples/examplevotingapp_worker:latest
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 

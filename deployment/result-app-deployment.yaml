@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result-deployment
+  labels:
+    app: demo-voting-app  
+    name: result-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-voting-app
+      name: result-app-pod
+  template:
+    metadata:
+      labels:
+        app: demo-voting-app
+        name: result-app-pod
+    spec:
+      containers:
+      - name: result-app
+        image: dockersamples/examplevotingapp_result:latest
+        ports:
+        - containerPort: 80
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1

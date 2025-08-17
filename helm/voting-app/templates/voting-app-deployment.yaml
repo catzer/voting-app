@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-app-deployment
+  labels:
+    app: demo-voting-app
+    name: voting-app-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: demo-voting-app
+      name: voting-app-pod
+  template:
+    metadata:
+      labels:
+        app: demo-voting-app
+        name: voting-app-pod
+    spec:
+      containers:
+      - name: voting-app
+        image: {{ .Values.image.votingApp }}
+        ports:
+        - containerPort: {{ .Values.service.votingApp.port }} 
